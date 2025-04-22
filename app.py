@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 
@@ -10,7 +9,7 @@ st.title("Estymator kampanii influencerskiej")
 @st.cache_data
 def load_data():
     df = pd.read_excel("Benchmarki_influencerskie_2023_do_uzupełniania_IG_TT_FB.xlsx")
-    return df.dropna(subset=["Platforma", "est. CPT", "ER"])
+    return df.dropna(subset=["Platforma", "est. CPT", "ER (engagement rate)"])
 
 df = load_data()
 
@@ -25,7 +24,7 @@ budget = st.number_input("Podaj budżet kampanii (PLN):", min_value=100.0, value
 platform_data = df[df["Platforma"] == platform].iloc[0]
 
 cpt = platform_data["est. CPT"]  # koszt 1000 odsłon
-er = platform_data["ER"] / 100   # procent na ułamek
+er = platform_data["ER (engagement rate)"] / 100   # procent na ułamek
 
 # Obliczenia
 reach = (budget / cpt) * 1000
